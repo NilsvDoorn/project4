@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+      <link href="/static/styles.css" rel="stylesheet">
+
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+      <title>Pinocchio's</title>
+    </head>
+    <main class="container p-5">
+      <h1>Specification</h1>
+      <form action="/commit_order" method="post">
+        {% csrf_token %}
+        <select name=product>
+          <option value="{{product.id}}">{{ product.product }}</option>
+        </select>
+        {% if product.toppings >= 1 %}
+          <p>
+          Topping 1
+          <select name="topping1">
+            {% for topping in all_toppings %}
+              <option value="{{ topping.product }}">{{ topping.product }}</option>
+            {% endfor %}
+          </select>
+          </p>
+        {% endif %}
+        {% if product.toppings >= 2 %}
+          <p>
+          Topping 2
+          <select name="topping2">
+            {% for topping in all_toppings %}
+              <option value="{{ topping.product }}">{{ topping.product }}</option>
+            {% endfor %}
+          </select>
+          <p>
+        {% endif %}
+        {% if product.toppings >= 3 %}
+          <p>
+          Topping 3
+          <select name="topping3">
+            {% for topping in all_toppings %}
+              <option value="{{ topping.product }}">{{ topping.product }}</option>
+            {% endfor %}
+          </select>
+          <p>
+        {% endif %}
+        {% if product.categorie == 'Subs' %}
+          <p>
+            extra cheese:
+            <input type="checkbox" name="cheese" value=True>+0.50
+          </p>
+        {% endif %}
+        {% if product.price_small %}
+          <p>
+          <button class="btn btn-primary" value="small" name="button" type="submit">Small</button>
+          <button class="btn btn-primary" value="large" name="button" type="submit">Large</button>
+          <button class="btn btn-danger" value="Cancel" name="button" type="submit">Cancel</button>
+          </p>
+        {% else %}
+          <p>
+          <button class="btn btn-primary" value="large" name="button" type="submit">order</button>
+          <button class="btn btn-danger" value="Cancel" name="button" type="submit">Cancel</button>
+          </p>
+        {% endif %}
+      </form>
+    </main>
+</html>
