@@ -67,7 +67,8 @@ def winkelwagen(request):
 
     context = {
         'total_price':round(total_price,2),
-        'orders':orders
+        'orders':orders,
+        'amount':len(orders)
     }
     return render(request,"winkelwagen.html",context)
 
